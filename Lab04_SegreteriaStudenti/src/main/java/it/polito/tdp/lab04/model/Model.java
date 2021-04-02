@@ -1,4 +1,5 @@
 package it.polito.tdp.lab04.model;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,10 +18,16 @@ public class Model {
 
 		
 	public List<Corso> getCorsi(){
-		return corsoDao.getTuttiICorsi();
+		List<Corso> c = new LinkedList <>();
+		Corso cTemp= new Corso("");
+		cTemp.setNome("");
+		c.add(cTemp);
+	    c.addAll(corsoDao.getTuttiICorsi());
+		
+		return c;
 	}
 	
-	public List <Studente> getStudenteByMatricola(Integer m) {
+	public Studente getStudenteByMatricola(Integer m) {
 		return studenteDao.getStudenteByMatricola(m);
 	}
 	

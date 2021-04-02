@@ -25,7 +25,7 @@ private Model model;
     private URL location;
 
     @FXML
-    private ChoiceBox<Corso> boxCorsi;
+    private ChoiceBox<Corso> Corsi;
 
     @FXML
     private Button btnCercaIscrittiCorso;
@@ -81,7 +81,7 @@ private Model model;
 
     @FXML
     void initialize() {
-        assert boxCorsi != null : "fx:id=\"Corsi\" was not injected: check your FXML file 'Scene.fxml'.";
+        assert Corsi != null : "fx:id=\"Corsi\" was not injected: check your FXML file 'Scene.fxml'.";
         assert btnCercaIscrittiCorso != null : "fx:id=\"btnCercaIscrittiCorso\" was not injected: check your FXML file 'Scene.fxml'.";
         assert matricola != null : "fx:id=\"matricola\" was not injected: check your FXML file 'Scene.fxml'.";
         assert btnCheck != null : "fx:id=\"btnCheck\" was not injected: check your FXML file 'Scene.fxml'.";
@@ -98,8 +98,7 @@ private Model model;
     
     public void setModel (Model model) {
     	this.model= model;
-    	//this.boxCorsi.getItems().addAll("Nessuna selezione");
-    	boxCorsi.getItems().addAll(model.getCorsi());
+    	Corsi.getItems().addAll(model.getCorsi());
     	
     	
     	

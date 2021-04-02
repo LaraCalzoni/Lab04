@@ -28,7 +28,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </Label>
-                  <ChoiceBox fx:id="Corsi" prefWidth="150.0">
+                  <ChoiceBox fx:id="Corsi">
                      <HBox.margin>
                         <Insets top="5.0" />
                      </HBox.margin>

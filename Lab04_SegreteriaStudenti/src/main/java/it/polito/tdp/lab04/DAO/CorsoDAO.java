@@ -17,9 +17,7 @@ public class CorsoDAO {
 	 */
 	public List<Corso> getTuttiICorsi() {
 
-		final String sql = "SELECT DISTINCT nome "+
-							"FROM corso "+
-							 "group BY nome";
+		final String sql = "SELECT * FROM corso group BY nome";
 
 		List<Corso> corsi = new LinkedList<Corso>();
 

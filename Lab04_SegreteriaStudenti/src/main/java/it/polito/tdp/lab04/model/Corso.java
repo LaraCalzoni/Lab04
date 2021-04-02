@@ -59,7 +59,7 @@ public class Corso {
 	}
 	@Override
 	public String toString() {
-		return "Corso [nome=" + nome + "]";
+		return nome + "\n";
 	}
 	
 	

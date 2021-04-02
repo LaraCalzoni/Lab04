@@ -10,24 +10,24 @@ import it.polito.tdp.lab04.model.Studente;
 
 public class StudenteDAO {
 
-	public List <Studente> getStudenteByMatricola(Integer matricola){
+	public Studente getStudenteByMatricola(Integer matricola){
 		String sq1 = "SELECT nome, cognome "+
 				"FROM studente "+
 				"WHERE matricola= ?";
 		
-		List <Studente> risultato = new LinkedList<>();
+     Studente s = null;
 		
 		try {
 			Connection conn = ConnectDB.getConnection();
 			PreparedStatement st = conn.prepareStatement(sq1);
-			//st.setInt(1, periodo); //1 vuol dire che imposto il primo parametro (?) che c'è nella query
+			st.setInt(1, matricola);
 			ResultSet rs = st.executeQuery();
 			
 			while(rs.next()) {
-				Studente s = new Studente(rs.getInt("matricola"));
+				s = new Studente(rs.getInt("matricola"));
 				s.setCognome(rs.getString("cognome"));
 				s.setNome(rs.getString("nome"));
-				risultato.add(s);
+				
 			}
 			conn.close(); 
 			st.close();
@@ -39,8 +39,11 @@ public class StudenteDAO {
 		catch(SQLException e) {
 			throw new RuntimeException(e);
 		}
+		catch (NullPointerException npe) {
+			throw new RuntimeException(npe);
+		}
 		
-		return risultato;
+		return s;
 	}
 		
 		
