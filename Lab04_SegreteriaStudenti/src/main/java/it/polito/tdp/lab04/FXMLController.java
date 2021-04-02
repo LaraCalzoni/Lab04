@@ -49,6 +49,9 @@ boolean studentePresente;
 
     @FXML
     private Button btnCercaCorsi;
+    
+    @FXML
+    private Button btnCerca;
 
     @FXML
     private Button btnIscrivi;
@@ -59,6 +62,28 @@ boolean studentePresente;
     @FXML
     private Button btnReset;
 
+    @FXML
+    void doCerca(ActionEvent event) {
+    	
+    txtRisultato.clear();
+    String matricolaStringa = matricola.getText();
+	Integer matricola = Integer.parseInt(matricolaStringa);
+	
+    Studente s = model.getStudenteByMatricola(matricola);
+    Corso c = Corsi.getSelectionModel().getSelectedItem();
+   if( model.studenteIscrittoAlCorso(s, c)==true) {
+	   txtRisultato.setText("Lo studente è già iscritto a questo corso");
+   }
+   else {
+	   txtRisultato.setText("Lo studente NON è iscritto al corso");
+   }
+    	
+    	
+    	
+    	
+    	
+    }
+    
     @FXML
     void doCercaCorsi(ActionEvent event) {
     List <Corso> corsi= new LinkedList <Corso>();
@@ -71,12 +96,20 @@ boolean studentePresente;
     		txtRisultato.setText("Lo studente non è iscritto a nessun corso!");
     	}
     	else {
-    		for(Corso c : corsi) {
+    		
     			
-    		txtRisultato.appendText(c+"\n");	
+    			txtRisultato.setStyle("-fx-font-family: monospace");
+    	    	StringBuilder sb = new StringBuilder(); 
+    	    	for (Corso c : corsi) {
+    	    		sb.append(String.format("%-8s ", c.getCodins()));
+    	        	sb.append(String.format("%-4d ", c.getCrediti()));
+    	    		sb.append(String.format("%-50s ", c.getNome()));
+    	    		sb.append(String.format("%-4d\n", c.getPd()));
+    	    	}
+    	    	txtRisultato.appendText(sb.toString());	
     			
     			
-    		}
+    		
     	}
    
     }
@@ -98,9 +131,16 @@ boolean studentePresente;
 	  txtRisultato.setText("Il corso non ha iscritti!");
   }
   else {
-  for (Studente s: studenti) {
-	txtRisultato.appendText(s+"\n");  
-  }
+	    txtRisultato.setStyle("-fx-font-family: monospace");
+     	StringBuilder sb = new StringBuilder(); 
+	  for (Studente s : studenti) {
+  		sb.append(String.format("%-6d ", s.getMatricola()));
+      	sb.append(String.format("%-20s ", s.getCognome()));
+  		sb.append(String.format("%-20s ", s.getNome()));
+  		sb.append(String.format("%-6s \n", s.getCds()));
+  	}
+  	txtRisultato.appendText(sb.toString());	
+		
     
   } 	
     	
@@ -151,6 +191,7 @@ boolean studentePresente;
         assert Nome != null : "fx:id=\"Nome\" was not injected: check your FXML file 'Scene.fxml'.";
         assert Cognome != null : "fx:id=\"Cognome\" was not injected: check your FXML file 'Scene.fxml'.";
         assert btnCercaCorsi != null : "fx:id=\"btnCercaCorsi\" was not injected: check your FXML file 'Scene.fxml'.";
+        assert btnCerca != null : "fx:id=\"btnCerca\" was not injected: check your FXML file 'Scene.fxml'.";
         assert btnIscrivi != null : "fx:id=\"btnIscrivi\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtRisultato != null : "fx:id=\"txtRisultato\" was not injected: check your FXML file 'Scene.fxml'.";
         assert btnReset != null : "fx:id=\"btnReset\" was not injected: check your FXML file 'Scene.fxml'.";

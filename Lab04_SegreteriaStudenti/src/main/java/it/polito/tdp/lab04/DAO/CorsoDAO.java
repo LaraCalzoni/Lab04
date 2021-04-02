@@ -133,5 +133,8 @@ public class CorsoDAO {
 		// ritorna true se l'iscrizione e' avvenuta con successo
 		return false;
 	}
+	
+	
+	
 
 }

@@ -67,7 +67,7 @@ public class Studente {
 
 	@Override
 	public String toString() {
-		return matricola+" "+ cognome + " "+nome;
+		return matricola+" "+ cognome + " "+nome+ " "+cds;
 	}
 	
 	

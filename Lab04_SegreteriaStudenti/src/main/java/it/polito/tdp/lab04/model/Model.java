@@ -46,4 +46,17 @@ public class Model {
 		
 	}
 	
+	public boolean studenteIscrittoAlCorso (Studente s, Corso c) {
+		
+		for(Corso cTemp : studenteDao.getCorsiByStudente(s.getMatricola())) {
+			if(cTemp.equals(c)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+
+	
 }
