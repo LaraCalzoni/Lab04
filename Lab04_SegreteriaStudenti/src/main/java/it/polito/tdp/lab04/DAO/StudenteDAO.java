@@ -11,7 +11,7 @@ import it.polito.tdp.lab04.model.Studente;
 public class StudenteDAO {
 
 	public Studente getStudenteByMatricola(Integer matricola){
-		String sq1 = "SELECT nome, cognome "+
+		String sq1 = "SELECT * "+
 				"FROM studente "+
 				"WHERE matricola= ?";
 		

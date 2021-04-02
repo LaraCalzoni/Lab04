@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import it.polito.tdp.lab04.DAO.StudenteDAO;
 import it.polito.tdp.lab04.model.Corso;
 import it.polito.tdp.lab04.model.Model;
+import it.polito.tdp.lab04.model.Studente;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -67,6 +68,22 @@ private Model model;
     @FXML
     void doCompletare(ActionEvent event) {
 
+    if(this.inputIsValid(matricola.getText()) == true ) { //cioè se passa il controllo dell'input
+	 Studente s =  model.getStudenteByMatricola(Integer.parseInt(matricola.getText()));
+	 if(s!=null) {
+		 txtRisultato.clear();
+	 Nome.setText(s.getNome());
+	  Cognome.setText(s.getCognome());
+  }
+	 else {
+		 
+		 txtRisultato.setText("ERRORE: Lo studente non è presente!");
+	 }
+	 
+    }
+    
+    	
+    	
     }
 
     @FXML
@@ -95,6 +112,32 @@ private Model model;
     }
     
    
+    
+    public boolean inputIsValid (String input) {
+    	String matricolaStringa = matricola.getText();
+    	Integer matricola;
+    	if(matricolaStringa.length()<6 || matricolaStringa.length()>6) {
+    		txtRisultato.setText("ERRORE: La matricola è composta da 6 numeri!");
+    		return false;
+    	}
+    	try {
+    		matricola = Integer.parseInt(matricolaStringa);
+    	}
+    	catch(NumberFormatException ne) {
+    		txtRisultato.setText("ERRORE: La matricola è un numero!");
+    		return false;
+    	}
+    	catch(NullPointerException npe) {
+    		txtRisultato.setText("ERRORE: Devi inserire una matricola!");
+    		return false;
+    	}
+    	
+    	
+    	
+    	return true;
+    	
+    }
+    
     
     public void setModel (Model model) {
     	this.model= model;
