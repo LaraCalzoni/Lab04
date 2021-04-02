@@ -11,6 +11,8 @@ import it.polito.tdp.lab04.model.Corso;
 import it.polito.tdp.lab04.model.Studente;
 
 public class CorsoDAO {
+	 List <Corso> listaCorsi;
+	 List <Studente> listaStudenti;
 	
 	/*
 	 * Ottengo tutti i corsi salvati nel Db
@@ -58,19 +60,69 @@ public class CorsoDAO {
 		}
 	}
 	
+
 	
 	/*
 	 * Dato un codice insegnamento, ottengo il corso
 	 */
-	public void getCorso(Corso corso) {
-		// TODO
+	public Corso getCorso(String codiceCorso) {
+	for (Corso c : listaCorsi) {
+		if(c.getCodins().equals(codiceCorso)) {
+			return c;
+		}
+	}
+		return null;
+		
 	}
 
+	
 	/*
 	 * Ottengo tutti gli studenti iscritti al Corso
 	 */
-	public void getStudentiIscrittiAlCorso(Corso corso) {
-		// TODO
+	public List <Studente> getStudentiIscrittiAlCorso(String codiceCorso) {
+		String sql = "SELECT * "
+				+ "FROM studente s, corso c, iscrizione i "
+				+ "WHERE s.matricola=i.matricola && c.codins=i.codins && c.codins = ? "
+				+"GROUP BY s.cognome";
+	
+     Studente s = null;
+    // Corso c = null;
+	 listaCorsi = new LinkedList <>();
+	 listaStudenti = new LinkedList <>();
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			//c = getCorso(codiceCorso);
+			st.setString(1, codiceCorso);
+			ResultSet rs = st.executeQuery();
+			
+			while(rs.next()) {
+				s = new Studente(rs.getInt("matricola"));
+				s.setCognome(rs.getString("cognome"));
+				s.setNome(rs.getString("nome"));
+				s.setCds(rs.getString("cds"));
+				listaStudenti.add(s);
+				
+				
+				
+			}
+			conn.close(); 
+			st.close();
+			rs.close();
+		}
+		
+		
+		
+		catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+		catch (NullPointerException npe) {
+			throw new RuntimeException(npe);
+		}
+		
+		return listaStudenti;
+		
+		
 	}
 
 	/*

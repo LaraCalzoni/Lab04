@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+
+import it.polito.tdp.lab04.model.Corso;
 import it.polito.tdp.lab04.model.Studente;
 
 public class StudenteDAO {
@@ -27,6 +29,7 @@ public class StudenteDAO {
 				s = new Studente(rs.getInt("matricola"));
 				s.setCognome(rs.getString("cognome"));
 				s.setNome(rs.getString("nome"));
+				s.setCds(rs.getString("cds"));
 				
 			}
 			conn.close(); 
@@ -47,6 +50,10 @@ public class StudenteDAO {
 	}
 		
 		
+	
+	
+	
+	
 	}
 	
 	

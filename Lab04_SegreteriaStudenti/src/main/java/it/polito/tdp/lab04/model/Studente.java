@@ -5,6 +5,7 @@ public class Studente {
 	String cognome;
 	String nome;
 	int matricola;
+	String cds;
 	
 	public Studente(int matricola) {
 		this.matricola= matricola;
@@ -34,6 +35,14 @@ public class Studente {
 		this.matricola = matricola;
 	}
 
+	public String getCds() {
+		return cds;
+	}
+
+	public void setCds(String cds) {
+		this.cds = cds;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -58,7 +67,7 @@ public class Studente {
 
 	@Override
 	public String toString() {
-		return "Studente [cognome=" + cognome + ", nome=" + nome + ", matricola=" + matricola + "]";
+		return matricola+" "+ cognome + " "+nome;
 	}
 	
 	

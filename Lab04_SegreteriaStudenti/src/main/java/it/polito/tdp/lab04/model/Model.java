@@ -31,5 +31,12 @@ public class Model {
 		return studenteDao.getStudenteByMatricola(m);
 	}
 	
+	
+	public List <Studente> getStudentiIscrittiAlCorso(Corso corso) {
+		return corsoDao.getStudentiIscrittiAlCorso(corso.getCodins());
 		
+		
+		
+	}
+	
 }

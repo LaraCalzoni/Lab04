@@ -1,6 +1,8 @@
 package it.polito.tdp.lab04;
 
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import it.polito.tdp.lab04.DAO.StudenteDAO;
@@ -18,6 +20,7 @@ import javafx.scene.control.TextField;
 public class FXMLController {
 	
 private Model model;
+Corso corsoSelezionato;
 
     @FXML
     private ResourceBundle resources;
@@ -62,7 +65,28 @@ private Model model;
 
     @FXML
     void doCercaIscrittiCorso(ActionEvent event) {
-
+    corsoSelezionato = Corsi.getSelectionModel().getSelectedItem();
+    if(corsoSelezionato== null) {
+    	txtRisultato.setText("ERRORE: Selezionare un corso!");
+    }
+   else { //se l'utente ha selezionato un corso...
+  txtRisultato.clear(); 	
+  List <Studente> studenti = new LinkedList <>();
+  studenti.addAll(model.getStudentiIscrittiAlCorso(corsoSelezionato));
+  if(studenti.size()==0) {
+	  txtRisultato.setText("Il corso non ha iscritti!");
+  }
+  else {
+  for (Studente s: studenti) {
+	txtRisultato.appendText(s+"\n");  
+  }
+    
+  } 	
+    	
+    }
+    	
+    	
+    	
     }
 
     @FXML
@@ -114,6 +138,7 @@ private Model model;
    
     
     public boolean inputIsValid (String input) {
+    	txtRisultato.clear();
     	String matricolaStringa = matricola.getText();
     	Integer matricola;
     	if(matricolaStringa.length()<6 || matricolaStringa.length()>6) {
