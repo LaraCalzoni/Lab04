@@ -49,7 +49,48 @@ public class StudenteDAO {
 		return s;
 	}
 		
-		
+		public List <Corso> getCorsiByStudente(Integer matricola){
+			
+			String sql = "SELECT * "
+					+ "FROM iscrizione i, corso c "
+					+ "WHERE i.codins= c.codins AND i.matricola= ? "
+					+ "GROUP BY c.nome";
+			
+	    List <Corso> corsi = new LinkedList <>();
+	    Corso c = null;
+			
+			try {
+				Connection conn = ConnectDB.getConnection();
+				PreparedStatement st = conn.prepareStatement(sql);
+				st.setInt(1, matricola);
+				ResultSet rs = st.executeQuery();
+				
+				while(rs.next()) {
+				c = new Corso(rs.getString("codins"));
+				c.setCrediti(rs.getInt("crediti"));
+				c.setNome(rs.getString("nome"));
+				c.setPd(rs.getInt("pd"));
+				corsi.add(c);
+				
+					
+				}
+				conn.close(); 
+				st.close();
+				rs.close();
+			}
+			
+			
+			
+			catch(SQLException e) {
+				throw new RuntimeException(e);
+			}
+			catch (NullPointerException npe) {
+				throw new RuntimeException(npe);
+			}
+			
+			return corsi;
+			
+		}
 	
 	
 	

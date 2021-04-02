@@ -21,6 +21,7 @@ public class FXMLController {
 	
 private Model model;
 Corso corsoSelezionato;
+boolean studentePresente;
 
     @FXML
     private ResourceBundle resources;
@@ -60,7 +61,27 @@ Corso corsoSelezionato;
 
     @FXML
     void doCercaCorsi(ActionEvent event) {
-
+    List <Corso> corsi= new LinkedList <Corso>();
+    this.doCompletare(event);	
+    if(studentePresente==true) { //se studente è presente visualizzo i corsi
+    	String matricolaStringa = matricola.getText();
+    	Integer matricola = Integer.parseInt(matricolaStringa);
+    	corsi.addAll(model.getCorsiByStudente(matricola));
+    	if(corsi.size()==0) { //se lughezza è 0 --> lo studente non è iscritto a nessun corso
+    		txtRisultato.setText("Lo studente non è iscritto a nessun corso!");
+    	}
+    	else {
+    		for(Corso c : corsi) {
+    			
+    		txtRisultato.appendText(c+"\n");	
+    			
+    			
+    		}
+    	}
+   
+    }
+ 
+   	
     }
 
     @FXML
@@ -95,12 +116,13 @@ Corso corsoSelezionato;
     if(this.inputIsValid(matricola.getText()) == true ) { //cioè se passa il controllo dell'input
 	 Studente s =  model.getStudenteByMatricola(Integer.parseInt(matricola.getText()));
 	 if(s!=null) {
-		 txtRisultato.clear();
+	 txtRisultato.clear();
+	 studentePresente= true;
 	 Nome.setText(s.getNome());
 	  Cognome.setText(s.getCognome());
   }
 	 else {
-		 
+		 studentePresente=false;
 		 txtRisultato.setText("ERRORE: Lo studente non è presente!");
 	 }
 	 

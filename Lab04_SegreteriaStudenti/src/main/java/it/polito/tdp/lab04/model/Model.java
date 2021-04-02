@@ -39,4 +39,11 @@ public class Model {
 		
 	}
 	
+	public List <Corso> getCorsiByStudente(Integer matricola){
+		
+	return studenteDao.getCorsiByStudente(matricola);	
+		
+		
+	}
+	
 }
