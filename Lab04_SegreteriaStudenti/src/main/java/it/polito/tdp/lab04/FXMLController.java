@@ -179,7 +179,11 @@ boolean studentePresente;
 
     @FXML
     void doReset(ActionEvent event) {
-
+    txtRisultato.clear();
+    matricola.clear();
+    Nome.clear();
+    Cognome.clear();
+    Corsi.getSelectionModel().clearSelection();
     }
 
     @FXML
